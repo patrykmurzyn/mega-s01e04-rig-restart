@@ -1,6 +1,6 @@
 ---
 plan: morning-digest
-status: ready
+status: active
 owner: rook
 opened: 2026-10-29
 ---
@@ -77,3 +77,20 @@ page again with `LANE_MARKER` unset (the banner reads "no marker set") and uploa
 link. Move this plan to `docs/plans/done/` with its issue list.
 
 Done when: the preview link no longer shows the lane marker.
+
+
+## Issues
+
+Human approved split and issue fields on 2026-11-03.
+
+| Issue | Section | State |
+| --- | --- | --- |
+| [#1](https://github.com/patrykmurzyn/mega-s01e04-rig-restart/issues/1) | 1 | closed |
+| [#2](https://github.com/patrykmurzyn/mega-s01e04-rig-restart/issues/2) | 2a | closed |
+| [#3](https://github.com/patrykmurzyn/mega-s01e04-rig-restart/issues/3) | 2b | closed |
+| [#4](https://github.com/patrykmurzyn/mega-s01e04-rig-restart/issues/4) | 2c | closed |
+| [#5](https://github.com/patrykmurzyn/mega-s01e04-rig-restart/issues/5) | 2d | closed |
+| [#6](https://github.com/patrykmurzyn/mega-s01e04-rig-restart/issues/6) | 3 | open |
+| [#7](https://github.com/patrykmurzyn/mega-s01e04-rig-restart/issues/7) | 4 | open |
+
+Implementation: 12 tests and typecheck pass; runs/ unchanged. Preview export and workflow prepared. Publication awaits separate human approval. Cleanup waits for actual course review and approval to overwrite the same URL.
