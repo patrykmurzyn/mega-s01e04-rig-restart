@@ -20,7 +20,22 @@ export function StatusBoard({ status }: { status: Status }) {
       ) : (
         <ul>
           {status.nights.map((n) => (
-            <li>{n}</li>
+            <li>
+              <a href={`/digest/${n}`}>{n}</a>
+              {status.digests[n] && (() => {
+                const digest = status.digests[n];
+                const counts = digest.rows.reduce(
+                  (total, row) => ({ ...total, [row.status]: total[row.status] + 1 }),
+                  { ok: 0, retry: 0, fail: 0 },
+                );
+                return (
+                  <>
+                    {' · '}{counts.ok} ok jobs · {counts.retry} retry jobs · {counts.fail} fail jobs
+                    {digest.badLines > 0 && ` · ${digest.badLines} bad lines`}
+                  </>
+                );
+              })()}
+            </li>
           ))}
         </ul>
       )}
