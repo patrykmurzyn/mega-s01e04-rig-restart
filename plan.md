@@ -90,7 +90,7 @@ Human approved split and issue fields on 2026-11-03.
 | [#3](https://github.com/patrykmurzyn/mega-s01e04-rig-restart/issues/3) | 2b | closed |
 | [#4](https://github.com/patrykmurzyn/mega-s01e04-rig-restart/issues/4) | 2c | closed |
 | [#5](https://github.com/patrykmurzyn/mega-s01e04-rig-restart/issues/5) | 2d | closed |
-| [#6](https://github.com/patrykmurzyn/mega-s01e04-rig-restart/issues/6) | 3 | open |
+| [#6](https://github.com/patrykmurzyn/mega-s01e04-rig-restart/issues/6) | 3 | closed |
 | [#7](https://github.com/patrykmurzyn/mega-s01e04-rig-restart/issues/7) | 4 | open |
 
-Implementation: 12 tests and typecheck pass; runs/ unchanged. Preview published after human approval: https://patrykmurzyn.github.io/mega-s01e04-rig-restart/ (Actions run 41709935653). Course acknowledged the link; review is pending. Cleanup waits for actual course review and separate approval to overwrite this same URL.
+Implementation: 12 tests and typecheck pass; runs/ unchanged. Preview published after human approval: https://patrykmurzyn.github.io/mega-s01e04-rig-restart/ (Actions run 41709935653). Course confirmed the reviewer has seen the preview (2026-11-03). Cleanup waits for actual course review and separate approval to overwrite this same URL.
