@@ -1,0 +1,104 @@
+name: Publish digest preview
+
+on:
+  workflow_dispatch:
+    inputs:
+      clean:
+        description: Remove the lane marker after review
+        required: true
+        default: false
+        type: boolean
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: github-pages
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 11.0.9
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Start rig and export digest
+        env:
+          LANE_MARKER: ${{ secrets.LANE_MARKER }}
+          EXPECTED_MARKER: ${{ secrets.LANE_MARKER }}
+          CLEAN: ${{ inputs.clean }}
+        run: |
+          set -euo pipefail
+
+          export PORT=8798
+          if [ "$CLEAN" = "true" ]; then
+            unset LANE_MARKER
+          fi
+
+          mkdir -p "$RUNNER_TEMP/site"
+          pnpm exec tsx src/server.ts >"$RUNNER_TEMP/rig.log" 2>&1 &
+          server_pid=$!
+          trap 'kill "$server_pid" 2>/dev/null || true; wait "$server_pid" 2>/dev/null || true' EXIT
+
+          for attempt in $(seq 1 30); do
+            if curl --fail --silent http://127.0.0.1:8798/health >/dev/null; then
+              break
+            fi
+            if [ "$attempt" -eq 30 ]; then
+              exit 1
+            fi
+            sleep 1
+          done
+
+          curl --fail --silent --show-error \
+            http://127.0.0.1:8798/digest/2026-10-28 \
+            -o "$RUNNER_TEMP/site/index.html"
+
+          node --input-type=module <<'NODE'
+          import { readFileSync } from 'node:fs';
+          const html = readFileSync(`${process.env.RUNNER_TEMP}/site/index.html`, 'utf8');
+          const clean = process.env.CLEAN === 'true';
+          const rows = (html.match(/<tbody[\s\S]*?<\/tbody>/)?.[0] ?? '').match(/<tr(?:\s|>)/g) ?? [];
+          const marker = process.env.EXPECTED_MARKER ?? '';
+          const hasMarker = marker.length > 0 && html.includes(marker);
+          const externalAssets = /<(?:script|link|img|iframe|source)\b[^>]*(?:src|href)\s*=/i.test(html);
+          const scripts = /<script\b/i.test(html);
+          if (rows.length !== 5) throw new Error('Expected exactly five digest body rows.');
+          if (externalAssets || scripts) throw new Error('Export contains a script or external asset.');
+          if (clean ? html.includes('no marker set') === false || (marker && hasMarker) : !marker || !hasMarker) {
+            throw new Error('Marker state does not match the selected export mode.');
+          }
+          NODE
+
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+        with:
+          enablement: false
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ${{ runner.temp }}/site
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
