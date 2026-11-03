@@ -9,8 +9,7 @@ The manually dispatched GitHub Actions workflow exports the server-rendered dige
 
 A repository maintainer must enable GitHub Pages with **GitHub Actions** as the build and
 deployment source, then add the repository Actions secret `LANE_MARKER`. The value is supplied
-only to the server process and is never printed or included in the workflow log. The workflow
-has not been run as part of preparing this change.
+only to the server process and is never printed or included in the workflow log. The first approved deployment succeeded in [run 41709935653](https://github.com/patrykmurzyn/mega-s01e04-rig-restart/actions/runs/41709935653). Public GET returned 200 with an export identical to the local HTML. The course acknowledged receipt; actual review is pending.
 
 ## Publish the marked preview
 
