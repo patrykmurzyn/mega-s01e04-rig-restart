@@ -1,8 +1,9 @@
 ---
 plan: morning-digest
-status: active
+status: done
 owner: rook
 opened: 2026-10-29
+closed: 2026-11-03T20:37:20Z
 ---
 
 # Morning digest
@@ -91,6 +92,6 @@ Human approved split and issue fields on 2026-11-03.
 | [#4](https://github.com/patrykmurzyn/mega-s01e04-rig-restart/issues/4) | 2c | closed |
 | [#5](https://github.com/patrykmurzyn/mega-s01e04-rig-restart/issues/5) | 2d | closed |
 | [#6](https://github.com/patrykmurzyn/mega-s01e04-rig-restart/issues/6) | 3 | closed |
-| [#7](https://github.com/patrykmurzyn/mega-s01e04-rig-restart/issues/7) | 4 | open |
+| [#7](https://github.com/patrykmurzyn/mega-s01e04-rig-restart/issues/7) | 4 | closed |
 
-Implementation: 12 tests and typecheck pass; runs/ unchanged. Preview published after human approval: https://patrykmurzyn.github.io/mega-s01e04-rig-restart/ (Actions run 41709935653). Course confirmed the reviewer has seen the preview (2026-11-03). Cleanup waits for actual course review and separate approval to overwrite this same URL.
+Implementation: 12 tests and typecheck pass; runs/ unchanged. Preview published after approval: https://patrykmurzyn.github.io/mega-s01e04-rig-restart/ (initial Actions run 41709935653). Course review confirmed 2026-11-03. Clean replacement published in [Actions run 41714163908](https://github.com/patrykmurzyn/mega-s01e04-rig-restart/actions/runs/41714163908); public GET returned 200, 2196 bytes, SHA-256 6c5cbebf44a457d09748c4d8530d2730c1bcf64fd4e768f297b1ae64e4576407, identical to the clean local candidate. The no-marker banner is present and the marker is absent. Evidence is retained in the private harness lesson log, outside this public repo: `restart-2026-11-03/logs/pages-clean-live-01.json`.
